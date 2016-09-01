@@ -1,0 +1,57 @@
+﻿@model JqueryAjaxJsonSample.Models.ViewModel.OrderViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h3>Create</h3>
+<br/>
+<h4>Order List</h4>
+<hr/>
+
+@using (Html.BeginForm("Save", "Order", FormMethod.Post, new {@class = "OrderForm"}))
+{
+    @Html.LabelFor(x=>x.Order.OrderNo,new{ @class="control-label col-md-2"} )
+    @Html.TextBoxFor(x=>x.Order.OrderNo,new{@class="form-control"} )
+    <br/>
+    <br/>
+    @Html.LabelFor(x=>x.Order.Quantity,new{ @class="control-label col-md-2"} )
+    @Html.TextBoxFor(x=>x.Order.Quantity,new{@class="form-control"} )
+    
+    <br/>
+    
+    <input type="button" value="Save" class="saveButton"/>
+    
+    
+}
+
+
+@section scripts
+{
+    
+    <script type="text/javascript">
+        $(function() {
+            $('.saveButton').unbind('click').bind('click', function() {
+
+                var form = $(this).parents('form:first');
+
+                var option = {
+                    url: "/Order/Save",
+                    type: "POST",
+                    data: form.serialize()
+                    //dataType:""
+                };
+
+                $.ajax(option).done(function() {
+                    alert('Saved Successfully');
+                });
+
+
+            });
+
+
+        });
+    </script>
+    
+
+}
+
